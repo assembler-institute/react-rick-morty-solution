@@ -1,9 +1,32 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
+
+import * as routes from "./constants/routes";
 
 import Home from "./pages/Home";
+import Episode from "./pages/Episode";
+// import Character from "./pages/Character";
+// import Location from "./pages/Location";
 
 function App() {
-  return <Home />;
+  return (
+    <Switch>
+      <Route
+        path={`${routes.EPISODE}/:episodeId`}
+        render={(routeProps) => <Episode {...routeProps} />}
+      />
+
+      {/* path={`${routes.CHARACTER}/:characterId`} */}
+
+      {/* path={`${routes.LOCATION}/:locationId`} */}
+
+      <Route
+        path={routes.HOME}
+        exact
+        render={(routeProps) => <Home {...routeProps} />}
+      />
+    </Switch>
+  );
 }
 
 export default App;
