@@ -20,9 +20,18 @@ class Location extends Component {
     try {
       const { match } = this.props;
       const { locationId } = match.params;
-      // const locationResponse = await getLocation(locationId);
+      const locationResponse = await getLocation(locationId);
+
+      this.setState({
+        location: locationResponse.data,
+        hasLoaded: true,
+      });
     } catch (error) {
-      console.log(error);
+      this.setState({
+        errorMessage: error.message,
+        hasLoaded: true,
+        hasError: true,
+      });
     }
   }
 
@@ -33,6 +42,15 @@ class Location extends Component {
       <Layout>
         {hasLoaded && !hasError && (
           <section className="row">
+            <div className="col col-12">
+              <h1 className="h3">
+                Location:{" "}
+                <code className="font-weight-bold">{location.name}</code>
+              </h1>
+            </div>
+            <div className="col col-12">
+              <hr />
+            </div>
             <div className="col col-12">
               <pre>
                 <code>{JSON.stringify(location, null, 2)}</code>

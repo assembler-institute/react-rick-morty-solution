@@ -19,6 +19,7 @@ class Home extends Component {
     };
 
     this.loadEpisodes = this.loadEpisodes.bind(this);
+    this.setNextPage = this.setNextPage.bind(this);
   }
 
   async componentDidMount() {
@@ -33,6 +34,12 @@ class Home extends Component {
     if (prevPage !== page) {
       this.loadEpisodes(page);
     }
+  }
+
+  setNextPage() {
+    this.setState((prevState) => ({
+      page: prevState.page + 1,
+    }));
   }
 
   async loadEpisodes(page) {
@@ -103,7 +110,7 @@ class Home extends Component {
               className="btn btn-primary"
               type="button"
               disabled={paginationInfo && !paginationInfo.next}
-              // onClick={this.setNextPage}
+              onClick={this.setNextPage}
             >
               Load next page
             </button>
